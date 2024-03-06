@@ -477,10 +477,13 @@ char *yytext;
 #line 1 ".\\lex.l"
 #define INITIAL 0
 #line 2 ".\\lex.l"
-#include<stdio.h>
-#include "y.tab.h"
-void yyerror(char *s);
-#line 484 "lex.yy.c"
+    #define YYSTYPE char*
+    #include<stdio.h>
+    #include<string.h>
+    #include "y.tab.h"
+    void yyerror(char *s);
+    extern YYSTYPE yylval;
+#line 487 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -631,10 +634,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 14 ".\\lex.l"
+#line 18 ".\\lex.l"
 
 
-#line 638 "lex.yy.c"
+#line 641 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -727,140 +730,150 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 16 ".\\lex.l"
+#line 20 ".\\lex.l"
 {printf("INT \n "); return INT;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 17 ".\\lex.l"
+#line 21 ".\\lex.l"
 return FLOAT;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 ".\\lex.l"
+#line 22 ".\\lex.l"
 return DOUBLE;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 19 ".\\lex.l"
+#line 23 ".\\lex.l"
 return CHAR;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 20 ".\\lex.l"
+#line 24 ".\\lex.l"
 return MAIN;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 21 ".\\lex.l"
+#line 25 ".\\lex.l"
 {printf("Include \n"); return INCLUDE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 ".\\lex.l"
-return NUM;
+#line 26 ".\\lex.l"
+{
+    yylval = strdup(yytext);
+    return NUM ;
+    }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 23 ".\\lex.l"
+#line 30 ".\\lex.l"
 {printf("IF \n"); return IF;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 24 ".\\lex.l"
+#line 31 ".\\lex.l"
 {printf("WHILE \n"); return WHILE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 25 ".\\lex.l"
+#line 32 ".\\lex.l"
 {printf("DO \n"); return DO;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 26 ".\\lex.l"
+#line 33 ".\\lex.l"
 {printf("FOR \n"); return FOR;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 27 ".\\lex.l"
+#line 34 ".\\lex.l"
 return SWITCH;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 28 ".\\lex.l"
+#line 35 ".\\lex.l"
 return CASE;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 29 ".\\lex.l"
+#line 36 ".\\lex.l"
 return BREAK;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 30 ".\\lex.l"
+#line 37 ".\\lex.l"
 return DEFAULT;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 31 ".\\lex.l"
+#line 38 ".\\lex.l"
 { printf("GTE \n"); return GTE;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 32 ".\\lex.l"
+#line 39 ".\\lex.l"
 { printf("LTE \n"); return LTE;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 33 ".\\lex.l"
+#line 40 ".\\lex.l"
 { printf("NEQ \n"); return NEQ;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 34 ".\\lex.l"
+#line 41 ".\\lex.l"
 { printf("EQ \n"); return EQ;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 35 ".\\lex.l"
+#line 42 ".\\lex.l"
 return RETURN;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 36 ".\\lex.l"
-{printf("ID \n"); return ID;}
+#line 43 ".\\lex.l"
+{
+    printf("ID \n"); 
+    yylval = strdup(yytext); // to store the actual value of the lexeme
+    return ID;
+    }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 37 ".\\lex.l"
-{printf("Header \n"); return STRING;}
+#line 48 ".\\lex.l"
+{
+    printf("Header \n"); 
+    return STRING;
+    }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 38 ".\\lex.l"
+#line 52 ".\\lex.l"
 ;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 40 ".\\lex.l"
+#line 54 ".\\lex.l"
 ;
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 41 ".\\lex.l"
+#line 55 ".\\lex.l"
 ;
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 43 ".\\lex.l"
+#line 57 ".\\lex.l"
 return *yytext;
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 45 ".\\lex.l"
+#line 59 ".\\lex.l"
 ECHO;
 	YY_BREAK
-#line 864 "lex.yy.c"
+#line 877 "lex.yy.c"
 			case YY_STATE_EOF(INITIAL):
 				yyterminate();
 
@@ -1744,4 +1757,4 @@ int main()
 	return 0;
 	}
 #endif
-#line 45 ".\\lex.l"
+#line 59 ".\\lex.l"

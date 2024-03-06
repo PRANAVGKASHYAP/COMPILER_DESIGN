@@ -35,9 +35,9 @@ S : Dclr ';' S
     | switch_st S 
     | Arrays ';' S 
     | return_st;
+    | Assign ';' S 
     |
     ;
-
 
 Dclr : Type List ;
 
@@ -79,7 +79,7 @@ VAR: ID '=' E 	{
 	} ;
 
 
-Assign : ID '=' E {
+Assign :  ID '=' E {
         if(check_sym_tab($1))
         {
             insert_val($1 , $3 , yylineno);
@@ -207,25 +207,10 @@ void yyerror(char *s)
 extern FILE* yyin;
 
 int main(int argc, char *argv[]) {
-    /*if (argc != 2) {
-        fprintf(stderr, "Usage: %s <input_file>\n", argv[0]);
-        return 1;
-    }
-
-    yyin = fopen(argv[1], "r");
-    if (yyin == NULL) {
-        perror("Error opening input file");
-        return 1;
-    }*/
-    
-
-    if (!yyparse())
-        printf("Parsing Successful\n");
-    else
-        printf("Unsuccessful\n");
-
-    fclose(yyin);
-    return 0;
+    t=init_table();
+	yyparse();
+	display_sym_tab();
+	return 0;
 }
 
 

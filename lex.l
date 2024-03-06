@@ -1,10 +1,10 @@
 %{
+    #define YYSTYPE char*
     #include<stdio.h>
     #include<string.h>
     #include "y.tab.h"
     void yyerror(char *s);
     extern YYSTYPE yylval;
-    #define YYSTYPE char*
 %}
 
 %option yylineno
@@ -25,8 +25,8 @@ main return MAIN;
 include {printf("Include \n"); return INCLUDE;}
 {number} {
     yylval = strdup(yytext);
-    return NUM
-    };
+    return NUM ;
+    }
 if {printf("IF \n"); return IF;}
 while {printf("WHILE \n"); return WHILE;}
 do {printf("DO \n"); return DO;}
@@ -41,8 +41,9 @@ default return DEFAULT;
 "==" { printf("EQ \n"); return EQ;}
 {ret} return RETURN;
 {id} {
-    printf("ID \n"); return ID;
+    printf("ID \n"); 
     yylval = strdup(yytext); // to store the actual value of the lexeme
+    return ID;
     }
 {str} {
     printf("Header \n"); 
