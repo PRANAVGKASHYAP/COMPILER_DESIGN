@@ -12,7 +12,10 @@ letter  [a-zA-Z]
 digit   [0-9]
 id  {letter}({letter}|{digit})*
 str {letter}+".h"
-number  {digit}+
+digits {digit}+
+opFraction	(\.{digits})?
+opExponent	([Ee][+-]?{digits})?
+number	{digits}{opFraction}{opExponent}
 ret "return"
 
 %%
@@ -49,6 +52,10 @@ default return DEFAULT;
     printf("Header \n"); 
     return STRING;
     }
+
+\".*\"		{yylval=strdup(yytext); return T_STRLITERAL; }
+
+
 [ \t\n]+ ;
 
 (\/)(\/).* ;

@@ -15,7 +15,7 @@
 
 %}
 
-%token INCLUDE INT FLOAT DOUBLE CHAR MAIN NUM IF WHILE DO FOR SWITCH CASE BREAK DEFAULT GTE LTE NEQ EQ RETURN STRING ID
+%token INCLUDE INT FLOAT DOUBLE CHAR MAIN NUM IF WHILE DO FOR SWITCH CASE BREAK DEFAULT GTE LTE NEQ EQ RETURN STRING ID T_STRLITERAL
 
 %%
 
@@ -82,7 +82,18 @@ VAR: ID '=' E 	{
 Assign :  ID '=' E {
         if(check_sym_tab($1))
         {
-            insert_val($1 , $3 , yylineno);
+            //checking the type of lhs and rhs
+            if( type_check($1) == type_check($3) )
+            {
+                insert_val($1 , $3 , yylineno);
+            }
+
+            else
+            {
+                printf("type mis match \n ");
+                yyerror($1);
+            }
+            
         }
 
         else
@@ -153,6 +164,14 @@ F : ID
     $$ = strdup($1);
     vtype = type_check($1);
 }
+
+    | T_STRLITERAL 
+	{
+		$$ = strdup($1);
+		vtype = -1;
+	}
+
+    
     | '(' E ')' 
     ;
 

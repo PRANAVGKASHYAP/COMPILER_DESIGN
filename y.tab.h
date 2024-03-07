@@ -60,7 +60,8 @@
      EQ = 276,
      RETURN = 277,
      STRING = 278,
-     ID = 279
+     ID = 279,
+     T_STRLITERAL = 280
    };
 #endif
 /* Tokens.  */
@@ -86,6 +87,7 @@
 #define RETURN 277
 #define STRING 278
 #define ID 279
+#define T_STRLITERAL 280
 
 
 

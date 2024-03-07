@@ -1,5 +1,6 @@
 #include<stdio.h>
 int main(){
-    int a;
+    int a ;
+    a = "3.14";
     return 0;
 }
