@@ -60,8 +60,19 @@ VAR: ID '=' E 	{
 
         else
         {
-            insert_symbol($1 , size(type) , type , yylineno , scope);
-            insert_val($1 , $3 , yylineno);
+            if( type_check($1) == type_check($3) )
+            {
+                insert_val($1 , $3 , yylineno);
+                insert_symbol($1 , size(type) , type , yylineno , scope);
+                insert_val($1 , $3 , yylineno);
+            }
+
+            else
+            {
+                printf("TYPE MIS MATCH FOUND");
+                yyerror($1);
+            }
+            
         }
     }
 
@@ -171,7 +182,7 @@ F : ID
 		vtype = -1;
 	}
 
-    
+
     | '(' E ')' 
     ;
 

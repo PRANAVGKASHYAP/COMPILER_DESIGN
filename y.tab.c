@@ -494,12 +494,12 @@ static const yytype_uint8 yyrline[] =
 {
        0,    22,    22,    22,    24,    26,    26,    28,    28,    28,
       30,    31,    32,    33,    34,    35,    36,    37,    38,    39,
-      42,    44,    45,    46,    47,    50,    51,    54,    68,    82,
-     109,   116,   123,   126,   133,   140,   143,   162,   168,   175,
-     178,   178,   180,   182,   183,   184,   185,   186,   187,   190,
-     190,   192,   192,   192,   194,   194,   196,   196,   198,   199,
-     200,   201,   204,   204,   206,   207,   209,   209,   211,   213,
-     213,   215
+      42,    44,    45,    46,    47,    50,    51,    54,    79,    93,
+     120,   127,   134,   137,   144,   151,   154,   173,   179,   186,
+     189,   189,   191,   193,   194,   195,   196,   197,   198,   201,
+     201,   203,   203,   203,   205,   205,   207,   207,   209,   210,
+     211,   212,   215,   215,   217,   218,   220,   220,   222,   224,
+     224,   226
 };
 #endif
 
@@ -1568,8 +1568,19 @@ yyreduce:
 
         else
         {
-            insert_symbol((yyvsp[(1) - (3)]) , size(type) , type , yylineno , scope);
-            insert_val((yyvsp[(1) - (3)]) , (yyvsp[(3) - (3)]) , yylineno);
+            if( type_check((yyvsp[(1) - (3)])) == type_check((yyvsp[(3) - (3)])) )
+            {
+                insert_val((yyvsp[(1) - (3)]) , (yyvsp[(3) - (3)]) , yylineno);
+                insert_symbol((yyvsp[(1) - (3)]) , size(type) , type , yylineno , scope);
+                insert_val((yyvsp[(1) - (3)]) , (yyvsp[(3) - (3)]) , yylineno);
+            }
+
+            else
+            {
+                printf("TYPE MIS MATCH FOUND");
+                yyerror((yyvsp[(1) - (3)]));
+            }
+            
         }
     }
     break;
@@ -1577,7 +1588,7 @@ yyreduce:
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 68 ".\\parser.y"
+#line 79 ".\\parser.y"
     {
 		if(check_sym_tab((yyvsp[(1) - (1)])))
 		{
@@ -1595,7 +1606,7 @@ yyreduce:
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 82 ".\\parser.y"
+#line 93 ".\\parser.y"
     {
         if(check_sym_tab((yyvsp[(1) - (3)])))
         {
@@ -1625,7 +1636,7 @@ yyreduce:
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 110 ".\\parser.y"
+#line 121 ".\\parser.y"
     {
     if(vtype == 2){ sprintf((yyval) , "%d" , ( atoi((yyvsp[(1) - (3)])) + atoi((yyvsp[(3) - (3)])) ) ) ; } 
 	else if(vtype == 3){ sprintf((yyval) , "%f" , ( atof((yyvsp[(1) - (3)])) + atof((yyvsp[(3) - (3)])) ) ) ; } 
@@ -1637,7 +1648,7 @@ yyreduce:
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 117 ".\\parser.y"
+#line 128 ".\\parser.y"
     {
     if(vtype == 2){ sprintf((yyval) , "%d" , ( atoi((yyvsp[(1) - (3)])) - atoi((yyvsp[(3) - (3)])) ) )  ; } 
 	else if(vtype == 3){ sprintf((yyval) , "%f" , ( atof((yyvsp[(1) - (3)])) - atof((yyvsp[(3) - (3)])) ) ) ; } 
@@ -1649,7 +1660,7 @@ yyreduce:
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 127 ".\\parser.y"
+#line 138 ".\\parser.y"
     {
     if(vtype == 2){ sprintf((yyval) , "%d" , ( atoi((yyvsp[(1) - (3)])) * atoi((yyvsp[(3) - (3)])) ) ) ;  } 
 	else if(vtype == 3){ sprintf((yyval) , "%f" , ( atof((yyvsp[(1) - (3)])) * atof((yyvsp[(3) - (3)])) ) )  ; } 
@@ -1661,7 +1672,7 @@ yyreduce:
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 134 ".\\parser.y"
+#line 145 ".\\parser.y"
     {
     if(vtype == 2){ sprintf((yyval) , "%d" , ( atoi((yyvsp[(1) - (3)])) / atoi((yyvsp[(3) - (3)])) ) ) ; } 
 	else if(vtype == 3){ sprintf((yyval) , "%f" , ( atof((yyvsp[(1) - (3)])) / atof((yyvsp[(3) - (3)])) ) ) ; } 
@@ -1673,7 +1684,7 @@ yyreduce:
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 144 ".\\parser.y"
+#line 155 ".\\parser.y"
     {
     if(check_sym_tab((yyvsp[(1) - (1)])))
 		{
@@ -1697,7 +1708,7 @@ yyreduce:
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 163 ".\\parser.y"
+#line 174 ".\\parser.y"
     {
     (yyval) = strdup((yyvsp[(1) - (1)]));
     vtype = type_check((yyvsp[(1) - (1)]));
@@ -1707,7 +1718,7 @@ yyreduce:
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 169 ".\\parser.y"
+#line 180 ".\\parser.y"
     {
 		(yyval) = strdup((yyvsp[(1) - (1)]));
 		vtype = -1;
@@ -1717,77 +1728,77 @@ yyreduce:
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 178 ".\\parser.y"
+#line 189 ".\\parser.y"
     {scope++ ; }
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 178 ".\\parser.y"
+#line 189 ".\\parser.y"
     {scope--;}
     break;
 
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 190 ".\\parser.y"
+#line 201 ".\\parser.y"
     {scope++ ; }
     break;
 
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 190 ".\\parser.y"
+#line 201 ".\\parser.y"
     {scope-- ; }
     break;
 
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 192 ".\\parser.y"
+#line 203 ".\\parser.y"
     {scope++ ; }
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 192 ".\\parser.y"
+#line 203 ".\\parser.y"
     {scope-- ; }
     break;
 
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 194 ".\\parser.y"
+#line 205 ".\\parser.y"
     {scope++ ; }
     break;
 
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 194 ".\\parser.y"
+#line 205 ".\\parser.y"
     {scope-- ; }
     break;
 
   case 62:
 
 /* Line 1455 of yacc.c  */
-#line 204 ".\\parser.y"
+#line 215 ".\\parser.y"
     {scope++ ; }
     break;
 
   case 63:
 
 /* Line 1455 of yacc.c  */
-#line 204 ".\\parser.y"
+#line 215 ".\\parser.y"
     {scope-- ; }
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1791 "y.tab.c"
+#line 1802 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1999,7 +2010,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 217 ".\\parser.y"
+#line 228 ".\\parser.y"
 
 
 void yyerror(char *s)
