@@ -1,14 +1,13 @@
 #include<stdio.h>
-int main(){
-    int a ;
-    a = 3;
 
-    while(a > 10)
+int main(){
+    int a;
+    a = 100;
+    float ch =  2;
+    if(a == 100)
     {
-        int x ;
-        x = 3;
-        int b = "abc";
+        int b = 100;
     }
 
-    return 0;
+    return 1;
 }

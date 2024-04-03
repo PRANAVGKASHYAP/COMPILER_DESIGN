@@ -60,7 +60,7 @@ VAR: ID '=' E 	{
 
         else
         {
-            if( type_check($1) == type_check($3) )
+            if( type == type_check($3) )
             {
                 insert_val($1 , $3 , yylineno);
                 insert_symbol($1 , size(type) , type , yylineno , scope);
@@ -179,14 +179,15 @@ F : ID
     | T_STRLITERAL 
 	{
 		$$ = strdup($1);
-		vtype = -1;
+		//vtype = -1;
+        vtype = type_check($1);
 	}
 
 
     | '(' E ')' 
     ;
 
-if_st : IF '(' cond ')' '{' S {scope++ ; } '}' {scope--;} ;
+if_st : IF '(' cond ')' '{' S  '}'  ;
 
 cond : E RELOP E ;
 
